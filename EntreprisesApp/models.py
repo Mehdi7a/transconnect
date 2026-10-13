@@ -20,7 +20,8 @@ class Utilisateur(AbstractUser):
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
     telephone=models.CharField(max_length=8)
-
+    def __str__(self):
+        return f"{self.username} {self.role}"
     def save(self, *args, **kwargs):
         if not self.user_id:
             self.user_id = self._generate_user_id()
@@ -40,9 +41,11 @@ class Entreprise(models.Model):
     raison_sociale=models.CharField(max_length=100)
     matricule_fiscale=models.CharField(max_length=17,unique=True,validators=[matricule_fiscal_validator])
     type_entreprise=models.CharField(max_length=15,choices=[('chargeur','chargeur'),('transporteur','transporteur')])
-    adresse=models.TextField(validators=[MinLengthValidator(20)])
+    adresse=models.TextField(validators=[MinLengthValidator(20,"error")])
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
+    gerant=models.OneToOneField(Utilisateur,on_delete=models.CASCADE,related_name='entreprise')
+    
 
     def __str__(self):
         return f"Entreprise {self.raison_sociale} - Matricule Fiscale {self.matricule_fiscale} - Type {self.type_entreprise}"

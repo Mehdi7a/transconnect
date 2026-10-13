@@ -38,12 +38,16 @@ class Offre(models.Model):
             if self.expedition.poids_kg > min(v.CAPACITE_MAX_TYPE[v.type_vehicule], v.capacite_kg):
                 raise ValidationError("Véhicule incompatible avec le poids de l'expédition")
 
-    def save(self, *args, **kwargs):                                                                 # R5
+    def _appliquer_cascade_acceptation(self):                                   # R5
+        exp = self.expedition
+        exp.statut = 'attribuee'
+        exp.save()
+        Offre.objects.filter(expedition=exp, statut='proposee').exclude(pk=self.pk).update(statut='refusee')
+
+    def save(self, *args, **kwargs):
         with transaction.atomic():
             self.full_clean()
             super().save(*args, **kwargs)
             if self.statut == 'acceptee':
-                exp = self.expedition
-                exp.statut = 'attribuee'
-                exp.save()
-                Offre.objects.filter(expedition=exp, statut='proposee').exclude(pk=self.pk).update(statut='refusee')
+                self._appliquer_cascade_acceptation()
+    

@@ -15,6 +15,7 @@ class Expedition(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True) 
     entreprise=models.ForeignKey('EntreprisesApp.Entreprise',on_delete=models.CASCADE,related_name='expeditions')
+
     def __str__(self):
         return f"Expedition {self.reference} - De {self.ville_depart} à {self.ville_arrivee} - Entreprise {self.entreprise.raison_sociale}"
 
@@ -23,8 +24,8 @@ class Expedition(models.Model):
             self.reference=self._generate_ref()
         self.full_clean()
         super().save(*args, **kwargs)
-
-    def _generate_ref():
+    @classmethod
+    def _generate_ref(cls):
         annee=timezone.now().strftime("%Y")
         prefixe= f"EXP-{annee}-"
         last_value=(
@@ -37,4 +38,14 @@ class Expedition(models.Model):
         if c>99999:
             raise ValidationError("Le nombre d'expeditions a atteint sa limite pour cette année {annee}")
 
-        
+        return f"{prefixe}{c:05d}"
+    @admin.register(Expedition)
+    class ExpeditionAdmin(admin.ModelAdmin):
+        list_display=("reference","ville_depart","ville_arrivee","date_souhaitee","poids_kg","statut")
+        list_filter=('statut','date_souhaitee')
+        search_fields=('reference','ville_depart','ville_arrivee')
+        list_editable=('ville_depart','ville_arrivee','date_souhaitee','poids_kg','statut')
+        ordering=('-created_at',)
+        date_hierarchy='date_souhaitee'
+        list_per_page=10
+    
