@@ -1,13 +1,23 @@
 from django.contrib import admin
-from .models import Offre 
-# Register your models here.
-admin.site.register(Offre)
+from .models import Offre
+
+
 @admin.register(Offre)
 class OffreAdmin(admin.ModelAdmin):
-    list_display=("prix","date_souhaitee","statut","expedition")
-    list_filter=('statut','date_souhaitee')
-    search_fields=('prix','expedition__reference')
-    list_editable=('prix','date_souhaitee','statut')
-    ordering=('-created_at',)
-    date_hierarchy='date_souhaitee'
-    list_per_page=10
+
+    list_display = ("id", "prix", "date_proposition", "statut", "expedition")
+
+    list_display_links = ("id", "prix")
+
+    list_filter = ("statut", "date_proposition")
+
+    search_fields = ("prix", "expedition__reference")
+
+    # Seul statut est modifiable directement dans la liste
+    list_editable = ("statut",)
+
+    ordering = ("-created_at",)
+
+    date_hierarchy = "date_proposition"
+
+    list_per_page = 10

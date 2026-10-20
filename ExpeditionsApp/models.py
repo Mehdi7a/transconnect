@@ -9,7 +9,7 @@ class Expedition(models.Model):
     ville_depart=models.CharField(max_length=100)
     ville_arrivee=models.CharField(max_length=100)
     date_souhaitee=models.DateField()
-    poids_kg=models.DecimalField(max_digits=10, decimal_places=2)
+    poids_kg=models.DecimalField(max_digits=300, decimal_places=5)
     description=models.TextField()
     statut=models.CharField(max_length=20,choices=[('publiee','publiee'),('attribuee','attribuee'),('en_cours','en_cours'),('livree','livree'),('annulee','annulee')],default='publiee')
     created_at=models.DateTimeField(auto_now_add=True)
@@ -39,13 +39,5 @@ class Expedition(models.Model):
             raise ValidationError("Le nombre d'expeditions a atteint sa limite pour cette année {annee}")
 
         return f"{prefixe}{c:05d}"
-    @admin.register(Expedition)
-    class ExpeditionAdmin(admin.ModelAdmin):
-        list_display=("reference","ville_depart","ville_arrivee","date_souhaitee","poids_kg","statut")
-        list_filter=('statut','date_souhaitee')
-        search_fields=('reference','ville_depart','ville_arrivee')
-        list_editable=('ville_depart','ville_arrivee','date_souhaitee','poids_kg','statut')
-        ordering=('-created_at',)
-        date_hierarchy='date_souhaitee'
-        list_per_page=10
+
     
