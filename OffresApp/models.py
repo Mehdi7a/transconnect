@@ -1,11 +1,10 @@
-from django.db import models
+from django.db import models, transaction
 from decimal import Decimal
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
-from django.db import transaction
 
-# Create your models here.
-class Offre(models.Model):                                        
+
+class Offre(models.Model):
     prix = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal('0.01'))])
     date_proposition = models.DateField(auto_now_add=True)
     delai_jours = models.PositiveIntegerField(validators=[MinValueValidator(1)])

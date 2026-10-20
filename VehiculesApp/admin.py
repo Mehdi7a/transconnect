@@ -5,6 +5,18 @@ from .models import Vehicule
 @admin.register(Vehicule)
 class VehiculeAdmin(admin.ModelAdmin):
     list_display=("immatriculation","type_vehicule","capacite_kg","disponible","entreprise")
+    fieldsets=(
+        ("Informations du véhicule",{ 
+            "fields":("immatriculation","type_vehicule","capacite_kg")
+            }),
+            ("Détails du véhicule", {
+                "fields": ("disponible","entreprise")
+            }),
+            ("Dates système", {
+                "fields": ("created_at", "updated_at")
+            })  
+    )
+    readonly_fields=("created_at","updated_at")
     list_filter=('type_vehicule','disponible','entreprise')
     search_fields=('immatriculation','type_vehicule','entreprise__raison_sociale')
     list_editable=('type_vehicule','capacite_kg','disponible')
