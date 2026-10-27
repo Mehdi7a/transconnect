@@ -1,0 +1,33 @@
+<h1>Détails de l'expedition {{ expedition.reference }}</h1>
+<ul>
+    <li>    
+        {{expedition.ville_depart}}
+    </li>
+    <li>    
+        {{expedition.ville_arrivee}}
+    </li>
+    <li>
+        {{expedition.description}}
+    </li>   
+
+</ul>
+<h1> offres associées</h1>
+<table>
+    thead>
+        <tr>
+            <th>Reference</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Prix</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{offre.reference}}</td>
+            <td>{{offre.nom}}</td>
+            <td>{{offre.prenom}}</td>
+            <td>{{offre.prix}}</td>
+
+        </tr>
+    </tbody>
+</table>
