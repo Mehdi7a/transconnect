@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Transconnect - {% block title %}{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1><a href="{% url 'home' %}">Transconnect</a></h1>
+    </header>
+
+    <nav>
+    <a href="{% url 'home' %}">Accueil</a>
+    <a href="{% url 'expeditions:liste' %}">Expéditions</a>
+    <a href="{% url 'vehicules:list' %}">Véhicules</a>
+    </nav>
+
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>Transconnect 2026</p>
+    </footer>
+</body>
+</html>
