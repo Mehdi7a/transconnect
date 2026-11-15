@@ -1,60 +1,39 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Liste des véhicules</title>
-</head>
+{% extends "base.html" %}
+{% block title %}Véhicules{% endblock %}
 
-<body>
+{% block main %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Véhicules</h1>
+    <a class="btn btn-primary" href="{% url 'vehicules:create' %}">Ajouter</a>
+</div>
 
-<h1>Liste des véhicules</h1>
-
-<a href="{% url 'vehicules:create' %}">
-    Ajouter un véhicule
-</a>
-
-<ul>
-
+<table class="table table-striped align-middle">
+    <thead>
+        <tr>
+            <th>Immatriculation</th>
+            <th>Type</th>
+            <th>Capacité (kg)</th>
+            <th>Entreprise</th>
+            <th>Disponible</th>
+            <th class="text-end">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
     {% for vehicule in vehicules %}
-
-        <li>
-
-            <a href="{% url 'vehicules:update' vehicule.pk %}">
-                {{ vehicule.immatriculation }}
-            </a>
-
-            <br>
-
-            Type :
-            {{ vehicule.get_type_vehicule_display }}
-
-            <br>
-
-            Capacité :
-            {{ vehicule.capacite_kg }} kg
-
-            <br>
-
-            Entreprise :
-            {{ vehicule.entreprise.raison_social }}
-
-            <br>
-
-            <a href="{% url 'vehicules:delete' vehicule.pk %}">
-                Supprimer
-            </a>
-
-        </li>
-
+        <tr>
+            <td>{{ vehicule.immatriculation }}</td>
+            <td>{{ vehicule.type_vehicule }}</td>
+            <td>{{ vehicule.capacite_kg }}</td>
+            <td>{{ vehicule.entreprise.raison_sociale }}</td>
+            <td>{{ vehicule.disponible|yesno:"Oui,Non" }}</td>
+            <td class="text-end">
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'vehicules:update' vehicule.pk %}">Modifier</a>
+                <a class="btn btn-sm btn-outline-danger" href="{% url 'vehicules:delete' vehicule.pk %}">Supprimer</a>
+            </td>
+        </tr>
     {% empty %}
-
-        <li>
-            Aucun véhicule trouvé.
-        </li>
-
+        <tr><td colspan="6">Aucun véhicule.</td></tr>
     {% endfor %}
-
-</ul>
-
-</body>
-</html>
+    </tbody>
+</table>
+{% endblock %}

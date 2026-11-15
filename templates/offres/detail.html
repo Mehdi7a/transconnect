@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Offre{% endblock %}
+
+{% block main %}
+<h1>Offre sur {{ offre.expedition.reference }}</h1>
+<dl class="row mt-4">
+    <dt class="col-sm-3">Transporteur</dt><dd class="col-sm-9">{{ offre.entreprise.raison_sociale }}</dd>
+    <dt class="col-sm-3">Véhicule</dt><dd class="col-sm-9">{{ offre.vehicule }}</dd>
+    <dt class="col-sm-3">Prix</dt><dd class="col-sm-9">{{ offre.prix }}</dd>
+    <dt class="col-sm-3">Délai</dt><dd class="col-sm-9">{{ offre.delai_jours }} jours</dd>
+    <dt class="col-sm-3">Statut</dt><dd class="col-sm-9">{{ offre.statut }}</dd>
+</dl>
+<a class="btn btn-outline-secondary" href="{% url 'offres:update' offre.pk %}">Modifier</a>
+<a class="btn btn-outline-danger" href="{% url 'offres:delete' offre.pk %}">Supprimer</a>
+<a class="btn btn-link" href="{% url 'offres:liste' %}">Retour</a>
+{% endblock %}

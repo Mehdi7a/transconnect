@@ -1,0 +1,9 @@
+{% block content %}
+<h2>Supprimer l'entreprise ?</h2>
+<p>{{ object.raison_sociale }} ({{ object.matricule_fiscale }})</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Oui, supprimer</button>
+    <a href="{% url 'entreprises:liste' %}">Annuler</a>
+</form>
+{% endblock %}

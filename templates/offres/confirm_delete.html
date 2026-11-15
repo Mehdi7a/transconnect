@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Supprimer{% endblock %}
+
+{% block main %}
+<h1>Supprimer l'offre ?</h1>
+<p class="lead">Offre de {{ object.entreprise.raison_sociale }} sur {{ object.expedition.reference }} ({{ object.prix }}).</p>
+<p>Cette action est définitive.</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Oui, supprimer</button>
+    <a class="btn btn-link" href="{% url 'offres:liste' %}">Annuler</a>
+</form>
+{% endblock %}

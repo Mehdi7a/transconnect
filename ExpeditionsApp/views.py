@@ -37,9 +37,7 @@ class ExpeditionDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['offres'] = (
-        self.object.offres # Or related_name
-        .select_related('transporteur', 'vehicule'))
+        context['offres'] = self.object.offres.select_related('entreprise', 'vehicule')
         return context
 
 

@@ -1,17 +1,32 @@
 {% extends "base.html" %}
-
-{% block title %}Liste des expéditions{% endblock %}
+{% block title %}Expéditions{% endblock %}
 
 {% block main %}
-    <h1>Liste des expéditions publiées</h1>
+<h1 class="mb-4">Expéditions</h1>
 
-    <ul>
-        {% for e in expeditions %}
-            <li>
-                <a href="{% url 'expeditions:details_expedition' e.reference %}">{{ e.reference }}</a>
-            </li>
-        {% empty %}
-            <li>Aucune expédition trouvée.</li>
-        {% endfor %}
-    </ul>
+<table class="table table-striped align-middle">
+    <thead>
+        <tr>
+            <th>Référence</th>
+            <th>Entreprise</th>
+            <th>Statut</th>
+            <th class="text-end">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for expedition in expeditions %}
+        <tr>
+            <td>{{ expedition.reference }}</td>
+            <td>{{ expedition.entreprise.raison_sociale }}</td>
+            <td>{{ expedition.statut }}</td>
+            <td class="text-end">
+                <a class="btn btn-sm btn-outline-secondary"
+                   href="{% url 'expeditions:details_expedition' expedition.reference %}">Détails</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="4">Aucune expédition publiée.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Accueil{% endblock %}
+
+{% block main %}
+<h1>Bienvenue sur Transconnect{% if nom %}, {{ nom }}{% endif %} !</h1>
+<p class="lead">Plateforme de mise en relation entre chargeurs et transporteurs.</p>
+<a class="btn btn-primary" href="{% url 'expeditions:liste' %}">Voir les expéditions</a>
+<a class="btn btn-outline-secondary" href="{% url 'offres:liste' %}">Voir les offres</a>
+{% endblock %}

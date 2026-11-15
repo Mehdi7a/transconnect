@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Offres{% endblock %}
+
+{% block main %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Offres</h1>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            Ajouter une offre
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+            {% for t in transporteurs %}
+                <li>
+                    <a class="dropdown-item" href="{% url 'offres:ajouter' t.pk %}">
+                        {{ t.raison_sociale }}
+                    </a>
+                </li>
+            {% empty %}
+                <li><span class="dropdown-item-text">Aucun transporteur.</span></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<table class="table table-striped align-middle">
+    <thead>
+        <tr><th>Expédition</th><th>Transporteur</th><th>Prix</th><th>Statut</th><th class="text-end">Actions</th></tr>
+    </thead>
+    <tbody>
+    {% for offre in offres %}
+        <tr>
+            <td><a href="{% url 'offres:details_offre' offre.pk %}">{{ offre.expedition.reference }}</a></td>
+            <td>{{ offre.entreprise.raison_sociale }}</td>
+            <td>{{ offre.prix }}</td>
+            <td>{{ offre.statut }}</td>
+            <td class="text-end">
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'offres:update' offre.pk %}">Modifier</a>
+                <a class="btn btn-sm btn-outline-danger" href="{% url 'offres:delete' offre.pk %}">Supprimer</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="5">Aucune offre.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

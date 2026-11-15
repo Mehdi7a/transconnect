@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Entreprise</title>
+</head>
+
+<body>
+
+<h1>Formulaire Entreprise</h1>
+
+<form method="post">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">
+        Enregistrer
+    </button>
+
+</form>
+
+<a href="{% url 'entreprises:liste' %}">Retour à la liste</a>
+
+</body>
+</html>

@@ -1,25 +1,12 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Véhicule</title>
-</head>
+{% extends "base.html" %}
+{% block title %}Véhicule{% endblock %}
 
-<body>
-
-<h1>Formulaire Véhicule</h1>
-
-<form method="post">
-
+{% block main %}
+<h1 class="mb-4">Véhicule</h1>
+<form method="post" class="col-lg-6">
     {% csrf_token %}
-
-    {{ form.as_p }}
-
-    <button type="submit">
-        Enregistrer
-    </button>
-
+    {% include "includes/form_fields.html" %}
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+    <a class="btn btn-link" href="{% url 'vehicules:list' %}">Annuler</a>
 </form>
-
-</body>
-</html>
+{% endblock %}
