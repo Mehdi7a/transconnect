@@ -13,6 +13,21 @@
     <style>
         #mainNav { background-color: #212529; }
         .contenu { padding-top: 8rem; padding-bottom: 4rem; min-height: 80vh; }
+
+        /* Bouton de déconnexion aligné sur les autres liens */
+        #mainNav .logout-btn {
+            background: none;
+            border: 0;
+            padding: 0.5rem 1rem;
+            font-family: inherit;
+            font-size: inherit;
+            font-weight: inherit;
+            text-transform: uppercase;
+            color: #fff;
+            cursor: pointer;
+        }
+        #mainNav .logout-btn:hover { color: #ffc800; }
+        #mainNav .nav-user { color: #ffc800; }
     </style>
 </head>
 <body id="page-top">
@@ -32,6 +47,20 @@
                     <li class="nav-item"><a class="nav-link" href="{% url 'offres:liste' %}">Offres</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'vehicules:list' %}">Véhicules</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'entreprises:liste' %}">Entreprises</a></li>
+
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <span class="nav-link nav-user">Bonjour, {{ user.username }}</span>
+                        </li>
+                        <li class="nav-item">
+                            <form method="post" action="{% url 'logout' %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="logout-btn">Déconnexion</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Connexion</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

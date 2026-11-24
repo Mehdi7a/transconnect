@@ -2,7 +2,13 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Entreprise
-from .forms import EntrepriseForm
+from .forms import EntrepriseForm, RegistrationForm
+
+
+class RegistrationView(CreateView):
+    form_class = RegistrationForm
+    template_name = 'registration/register.html'
+    success_url = reverse_lazy('login')
 
 
 class ListeViewEntreprises(ListView):

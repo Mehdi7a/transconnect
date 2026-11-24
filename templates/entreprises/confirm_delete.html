@@ -1,9 +1,13 @@
-{% block content %}
-<h2>Supprimer l'entreprise ?</h2>
+{% extends "base.html" %}
+{% block title %}Supprimer l'entreprise{% endblock %}
+
+{% block main %}
+<h1 class="mb-4">Supprimer l'entreprise ?</h1>
 <p>{{ object.raison_sociale }} ({{ object.matricule_fiscale }})</p>
+
 <form method="post">
     {% csrf_token %}
-    <button type="submit">Oui, supprimer</button>
-    <a href="{% url 'entreprises:liste' %}">Annuler</a>
+    <button type="submit" class="btn btn-danger">Oui, supprimer</button>
+    <a class="btn btn-link" href="{% url 'entreprises:liste' %}">Annuler</a>
 </form>
 {% endblock %}
