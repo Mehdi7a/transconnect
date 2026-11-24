@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'VehiculesApp',
     'ExpeditionsApp',
     'OffresApp',
+    'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
